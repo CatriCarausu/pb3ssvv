@@ -3,9 +3,9 @@ package model;
 import java.util.Objects;
 
 public class Client {
-	public String Name;
-    public String Address;
-    public String idClient;
+	private String Name;
+    private String Address;
+    private String idClient;
     
     public Client(){
         this.Name = "";
@@ -48,5 +48,29 @@ public class Client {
         hash = 59 * hash + Objects.hashCode(this.Name);
         hash = 59 * hash + Objects.hashCode(this.Address);
         return hash;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public String getIdClient() {
+        return idClient;
+    }
+
+    public void setIdClient(String idClient) {
+        this.idClient = idClient;
     }
 }

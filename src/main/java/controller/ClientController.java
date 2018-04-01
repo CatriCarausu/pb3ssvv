@@ -17,15 +17,15 @@ public class ClientController {
     }
     
     private String ValidateClient(String name, String address, String id){
-        if(!name.equals("") && !address.equals("") && !name.equals(" ")){
-            for(int i=0;i<name.length();i++){
+        if(!name.equals("") && !address.equals("") && !id.equals(" ")){
+            for(int i=0; i<name.length(); i++){
                 if((!Character.isUpperCase(name.charAt(i))) && (!Character.isLowerCase(name.charAt(i))) && (!Character.isSpaceChar(name.charAt(i)))){
                     return "Invalid character: " + name.charAt(i);
                 }
             }
             return null;
         }else{
-            return "Name or address cannot be empty!";
+            return "Id, Name or address cannot be empty!";
         }
     }
     
@@ -57,7 +57,7 @@ public class ClientController {
                 if(toPay >= 0){
                     //validate client attributes
                     String valid;
-                    if((valid = ValidateClient(c.Name, c.Address, c.idClient)) == null){
+                    if((valid = ValidateClient(c.getName(), c.getAddress(), c.getIdClient())) == null){
                         //check if client exist
                         Boolean exist = false;
                         for(int i=0; i<_dataManager.Clients.size(); i++){
@@ -74,8 +74,7 @@ public class ClientController {
                                     return "Monthly index already exists!";
                                 }
                             }
-                        
-                            _dataManager.Issues.add(i);
+
                             _dataManager.SaveChanges();
                             return null;
                         }else{
@@ -101,9 +100,9 @@ public class ClientController {
         Double total = 0.0;
         Issue last = null, beforeLast;       
         for(int i=0; i<_dataManager.Issues.size(); i++){
-        	if(_dataManager.Issues.get(i).Client.equals(c)){
+        	if(_dataManager.Issues.get(i).getClient().equals(c)){
             	 pen += String.format("Year: %d, Month: %d, Penalty: %2.0f\n",
-                         _dataManager.Issues.get(i).Year, _dataManager.Issues.get(i).Month, _dataManager.Issues.get(i).ToPay);
+                         _dataManager.Issues.get(i).getYear(), _dataManager.Issues.get(i).getMonth(), _dataManager.Issues.get(i).getToPay());
             	 s += pen;
         	}            
         }

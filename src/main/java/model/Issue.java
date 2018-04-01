@@ -3,11 +3,11 @@ package model;
 import java.util.Objects;
 
 public class Issue {
-	public Client Client;
-    public int Year;
-    public int Month;
-    public float ToPay;
-    public float Paid;
+    private Client Client;
+    private int Year;
+    private int Month;
+    private float ToPay;
+    private float Paid;
     
     public Issue(){
         this.Client = new Client();
@@ -59,5 +59,45 @@ public class Issue {
         hash = 71 * hash + Float.floatToIntBits(this.ToPay);
         hash = 71 * hash + Float.floatToIntBits(this.Paid);
         return hash;
+    }
+
+    public model.Client getClient() {
+        return Client;
+    }
+
+    public void setClient(model.Client client) {
+        Client = client;
+    }
+
+    public int getYear() {
+        return Year;
+    }
+
+    public void setYear(int year) {
+        Year = year;
+    }
+
+    public int getMonth() {
+        return Month;
+    }
+
+    public void setMonth(int month) {
+        Month = month;
+    }
+
+    public float getToPay() {
+        return ToPay;
+    }
+
+    public void setToPay(float toPay) {
+        ToPay = toPay;
+    }
+
+    public float getPaid() {
+        return Paid;
+    }
+
+    public void setPaid(float paid) {
+        Paid = paid;
     }
 }

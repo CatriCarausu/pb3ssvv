@@ -69,7 +69,7 @@ public class ElectricaUI {
 				System.out.println("Enter id:");
 				String id = in.nextLine();			
 				
-				ctrl.AddClient(name, address,id);
+				System.out.println(ctrl.AddClient(name, address,id));
 			}
 			if(cmd==2)
 			{
@@ -91,8 +91,8 @@ public class ElectricaUI {
 				System.out.println("Enter toPay:");
 				String sumToPayS = in.nextLine();
 				float sumToPay=Float.parseFloat(sumToPayS);
-				
-				ctrl.AddClientIndex(c, year, month, sumToPay);
+
+				System.out.println(ctrl.AddClientIndex(c, year, month, sumToPay));
 			    
 			}
 			if(cmd==3)
