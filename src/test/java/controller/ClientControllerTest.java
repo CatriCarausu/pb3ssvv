@@ -22,21 +22,6 @@ public class ClientControllerTest {
         controller = new ClientController();
     }
 
-    private String generateString(int length) {
-        Random random = new Random();
-        String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String lower = upper.toLowerCase(Locale.ROOT);
-        String space = " ";
-        String alpha = upper + lower + space;
-        StringBuilder s = new StringBuilder();
-
-        for(int i = 0; i < length; i++) {
-            s.append(alpha.charAt(random.nextInt(alpha.length())));
-        }
-
-        return s.toString();
-    }
-
     @Test
     public void addClient() throws Exception {
         int oldSize = controller.get_dataManager().Clients.size();
@@ -171,5 +156,20 @@ public class ClientControllerTest {
         } catch (OutOfMemoryError e){
             assertTrue(true);
         }
+    }
+
+    private String generateString(int length) {
+        Random random = new Random();
+        String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String lower = upper.toLowerCase(Locale.ROOT);
+        String space = " ";
+        String alpha = upper + lower + space;
+        StringBuilder s = new StringBuilder();
+
+        for(int i = 0; i < length; i++) {
+            s.append(alpha.charAt(random.nextInt(alpha.length())));
+        }
+
+        return s.toString();
     }
 }
