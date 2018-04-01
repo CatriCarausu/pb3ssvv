@@ -17,13 +17,22 @@ public class ClientController {
     }
     
     private String ValidateClient(String name, String address, String id){
-        if(!name.equals("") && !address.equals("") && !id.equals(" ")){
+        boolean hasAlpha = false;
+        if(!name.equals("") && !address.equals("") && !id.equals("")){
             for(int i=0; i<name.length(); i++){
                 if((!Character.isUpperCase(name.charAt(i))) && (!Character.isLowerCase(name.charAt(i))) && (!Character.isSpaceChar(name.charAt(i)))){
                     return "Invalid character: " + name.charAt(i);
                 }
+                if (Character.isAlphabetic(name.charAt(i))) {
+                    hasAlpha = true;
+                }
+            }
+
+            if(!hasAlpha) {
+                return "Id, Name or address cannot be empty!";
             }
             return null;
+
         }else{
             return "Id, Name or address cannot be empty!";
         }
@@ -45,7 +54,7 @@ public class ClientController {
         try{
             _dataManager.Clients.add(c);
             _dataManager.SaveChanges();
-            return null;
+            return "Success";
         }catch(Exception ex){
             return ex.getMessage();
         }

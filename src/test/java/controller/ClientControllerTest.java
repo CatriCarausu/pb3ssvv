@@ -46,29 +46,20 @@ public class ClientControllerTest {
         assertEquals(controller.get_dataManager().Clients.size(), oldSize + 1);
 
         oldSize = controller.get_dataManager().Clients.size();
-        response = controller.AddClient("a    f", "str T Mihali", "1");
+        response = controller.AddClient("a    f", "str T Mihali", "2");
         assertEquals(response, success);
         assertEquals(controller.get_dataManager().Clients.size(), oldSize + 1);
 
         oldSize = controller.get_dataManager().Clients.size();
-        response = controller.AddClient("ana", "str T Mihali", "1");
+        response = controller.AddClient("ana", "str T Mihali", "3");
         assertEquals(response, success);
         assertEquals(controller.get_dataManager().Clients.size(), oldSize + 1);
 
         oldSize = controller.get_dataManager().Clients.size();
-        response = controller.AddClient("a", "str T Mihali", "1");
+        response = controller.AddClient("a", "str T Mihali", "4");
         assertEquals(response, success);
         assertEquals(controller.get_dataManager().Clients.size(), oldSize + 1);
 
-        oldSize = controller.get_dataManager().Clients.size();
-        response = controller.AddClient(this.generateString(Integer.MAX_VALUE), "str T Mihali", "1");
-        assertEquals(response, success);
-        assertEquals(controller.get_dataManager().Clients.size(), oldSize + 1);
-
-        oldSize = controller.get_dataManager().Clients.size();
-        response = controller.AddClient(this.generateString(Integer.MAX_VALUE - 1), "str T Mihali", "1");
-        assertEquals(response, success);
-        assertEquals(controller.get_dataManager().Clients.size(), oldSize + 1);
     }
 
     @Test
@@ -121,20 +112,64 @@ public class ClientControllerTest {
         assertEquals(controller.get_dataManager().Clients.size(), oldSize);
 
         response = controller.AddClient("1", "test", "test");
-        assertEquals(response, invalidCharacterMessage + '3');
+        assertEquals(response, invalidCharacterMessage + '1');
         assertEquals(controller.get_dataManager().Clients.size(), oldSize);
 
         response = controller.AddClient("1 3", "test", "test");
-        assertEquals(response, invalidCharacterMessage + '3');
+        assertEquals(response, invalidCharacterMessage + '1');
         assertEquals(controller.get_dataManager().Clients.size(), oldSize);
 
         response = controller.AddClient("123", "test", "test");
-        assertEquals(response, invalidCharacterMessage + '3');
+        assertEquals(response, invalidCharacterMessage + '1');
         assertEquals(controller.get_dataManager().Clients.size(), oldSize);
 
         response = controller.AddClient("///", "test", "test");
-        assertEquals(response, invalidCharacterMessage + '3');
+        assertEquals(response, invalidCharacterMessage + '/');
         assertEquals(controller.get_dataManager().Clients.size(), oldSize);
     }
 
+    @Test
+    public void addClientFailsWhenDataSizeOutOfHeapSize() {
+        try{
+            controller.AddClient(this.generateString(Integer.MAX_VALUE), "str T Mihali", "5");
+            assertTrue(false);
+        } catch (OutOfMemoryError e){
+            assertTrue(true);
+        }
+
+        try{
+            controller.AddClient(this.generateString(Integer.MAX_VALUE - 1), "str T Mihali", "5");
+            assertTrue(false);
+        } catch (OutOfMemoryError e){
+            assertTrue(true);
+        }
+
+        try{
+            controller.AddClient("test", this.generateString(Integer.MAX_VALUE),  "5");
+            assertTrue(false);
+        } catch (OutOfMemoryError e){
+            assertTrue(true);
+        }
+
+        try{
+            controller.AddClient("test", this.generateString(Integer.MAX_VALUE - 1),  "5");
+            assertTrue(false);
+        } catch (OutOfMemoryError e){
+            assertTrue(true);
+        }
+
+        try{
+            controller.AddClient("name", "str T Mihali", this.generateString(Integer.MAX_VALUE));
+            assertTrue(false);
+        } catch (OutOfMemoryError e){
+            assertTrue(true);
+        }
+
+        try{
+            controller.AddClient("name", "str T Mihali", this.generateString(Integer.MAX_VALUE - 1));
+            assertTrue(false);
+        } catch (OutOfMemoryError e){
+            assertTrue(true);
+        }
+    }
 }
