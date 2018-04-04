@@ -61,6 +61,7 @@ public class ClientController {
     }
     
     public String AddClientIndex(Client c, int year, int month, float toPay){
+        String result = "";
         if(year > 0){
             if(month > 0){
                 if(toPay >= 0){
@@ -75,32 +76,34 @@ public class ClientController {
                                 break;
                             }
                         }
+
                         if(exist){
                             Issue i = new Issue(c, year, month, toPay, 0);
                             //uniqueness
-                            for(int j=0; j<_dataManager.Issues.size(); j++){
-                                if(_dataManager.Issues.get(j).equals(i)){
-                                    return "Monthly index already exists!";
+                            for(int j=0; j < _dataManager.Issues.size(); j++){
+                                if(_dataManager.Issues.get(j).getMonth() == month && _dataManager.Issues.get(j).getYear() == year
+                                        && _dataManager.Issues.get(j).getClient().equals(c)){
+                                   return "Monthly index already exists!";
                                 }
                             }
 
+                            _dataManager.getInvoicesList().add(i);
                             _dataManager.SaveChanges();
-                            return null;
+                            result = "Success";
                         }else{
-                            return "Client does not exist!";
+                            result = "Client does not exist!";
                         }
-                    }else{
-                        return valid;
                     }
                 }else{
-                    return "Money to pay can't be less than 0!";
+                    result = "Money to pay can't be less than 0!";
                 }
             }else{
-                return "Month can't be 0 or less!";
+                result = "Month can't be 0 or less!";
             }
         }else{
-            return "Year can't be 0 or less!";
+            result = "Year can't be 0 or less!";
         }
+        return result;
     }
     
     public String ListIssue(Client c){
