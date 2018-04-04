@@ -46,7 +46,6 @@ public class ClientControllerTest {
         String response = controller.AddClient("ana", "str T Mihali", "3");
         assertEquals(response, success);
         assertEquals(controller.get_dataManager().Clients.size(), oldSize + 1);
-
         oldSize = controller.get_dataManager().Clients.size();
         response = controller.AddClient("a", "str T Mihali", "4");
         assertEquals(response, success);
@@ -90,32 +89,31 @@ public class ClientControllerTest {
     @Test
     public void addClientFailsWhenNameContainsIllegalCharacters(){
         int oldSize = controller.get_dataManager().Clients.size();
+        String response = controller.AddClient("      ", "test", "test");
+        assertEquals(response, emptyMessage);
+        assertEquals(controller.get_dataManager().Clients.size(), oldSize);
+        response = controller.AddClient("///", "test", "test");
+        assertEquals(response, invalidCharacterMessage + '/');
+        assertEquals(controller.get_dataManager().Clients.size(), oldSize);
+    }
+
+    @Test
+    public void addClientFailsWhenNameContainsNumbers() {
+        int oldSize = controller.get_dataManager().Clients.size();
         String response = controller.AddClient("ana3", "test", "test");
         assertEquals(response, invalidCharacterMessage + '3');
         assertEquals(controller.get_dataManager().Clients.size(), oldSize);
-
-        response = controller.AddClient("      ", "test", "test");
-        assertEquals(response, emptyMessage);
-        assertEquals(controller.get_dataManager().Clients.size(), oldSize);
-
         response = controller.AddClient("ana3", "test", "test");
         assertEquals(response, invalidCharacterMessage + '3');
         assertEquals(controller.get_dataManager().Clients.size(), oldSize);
-
         response = controller.AddClient("1", "test", "test");
         assertEquals(response, invalidCharacterMessage + '1');
         assertEquals(controller.get_dataManager().Clients.size(), oldSize);
-
         response = controller.AddClient("1 3", "test", "test");
         assertEquals(response, invalidCharacterMessage + '1');
         assertEquals(controller.get_dataManager().Clients.size(), oldSize);
-
         response = controller.AddClient("123", "test", "test");
         assertEquals(response, invalidCharacterMessage + '1');
-        assertEquals(controller.get_dataManager().Clients.size(), oldSize);
-
-        response = controller.AddClient("///", "test", "test");
-        assertEquals(response, invalidCharacterMessage + '/');
         assertEquals(controller.get_dataManager().Clients.size(), oldSize);
     }
 
