@@ -16,6 +16,7 @@ public class ClientControllerTest {
     private ClientController controller;
     private String emptyMessage = "Id, Name or address cannot be empty!";
     private String invalidCharacterMessage = "Invalid character: ";
+    String success = "Success";
 
     @Before
     public void setUp() throws Exception {
@@ -26,17 +27,23 @@ public class ClientControllerTest {
     public void addClient() throws Exception {
         int oldSize = controller.get_dataManager().Clients.size();
         String response = controller.AddClient("ana maria", "str T Mihali", "1");
-        String success = "Success";
         assertEquals(response, success);
         assertEquals(controller.get_dataManager().Clients.size(), oldSize + 1);
 
-        oldSize = controller.get_dataManager().Clients.size();
-        response = controller.AddClient("a    f", "str T Mihali", "2");
+    }
+
+    @Test
+    public void addClientValidNameSpaces() throws Exception {
+        Integer oldSize = controller.get_dataManager().Clients.size();
+        String response = controller.AddClient("a    f", "str T Mihali", "2");
         assertEquals(response, success);
         assertEquals(controller.get_dataManager().Clients.size(), oldSize + 1);
+    }
 
-        oldSize = controller.get_dataManager().Clients.size();
-        response = controller.AddClient("ana", "str T Mihali", "3");
+    @Test
+    public void addClientValidNameWithoutSpaces() throws Exception {
+        Integer oldSize = controller.get_dataManager().Clients.size();
+        String response = controller.AddClient("ana", "str T Mihali", "3");
         assertEquals(response, success);
         assertEquals(controller.get_dataManager().Clients.size(), oldSize + 1);
 
@@ -44,7 +51,6 @@ public class ClientControllerTest {
         response = controller.AddClient("a", "str T Mihali", "4");
         assertEquals(response, success);
         assertEquals(controller.get_dataManager().Clients.size(), oldSize + 1);
-
     }
 
     @Test
