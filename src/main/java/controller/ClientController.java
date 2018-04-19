@@ -99,6 +99,9 @@ public class ClientController {
                             result = "Client does not exist!";
                         }
                     }
+                    else {
+                        result = "Invalid client data!";
+                    }
                 }else{
                     result = "Money to pay can't be less than 0!";
                 }
