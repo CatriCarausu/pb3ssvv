@@ -65,11 +65,14 @@ public class ClientController {
         if(year > 0){
             if(month > 0){
                 if(toPay >= 0){
-                    //validate client attributes
-                    String valid;
-                    if((valid = ValidateClient(c.getName(), c.getAddress(), c.getIdClient())) == null){
+                    if(ValidateClient(c.getName(), c.getAddress(), c.getIdClient()) == null){
                         //check if client exist
                         Boolean exist = false;
+
+                        if (_dataManager.Clients.isEmpty()) {
+                            return "Client does not exist!";
+                        }
+
                         for(int i=0; i<_dataManager.Clients.size(); i++){
                             if(_dataManager.Clients.get(i).equals(c)){
                                 exist = true;
@@ -79,11 +82,13 @@ public class ClientController {
 
                         if(exist){
                             Issue i = new Issue(c, year, month, toPay, 0);
-                            //uniqueness
-                            for(int j=0; j < _dataManager.Issues.size(); j++){
-                                if(_dataManager.Issues.get(j).getMonth() == month && _dataManager.Issues.get(j).getYear() == year
-                                        && _dataManager.Issues.get(j).getClient().equals(c)){
-                                   return "Monthly index already exists!";
+
+                            if(!_dataManager.Issues.isEmpty()) {
+                                for(int j=0; j < _dataManager.Issues.size(); j++){
+                                    if(_dataManager.Issues.get(j).getMonth() == month && _dataManager.Issues.get(j).getYear() == year
+                                            && _dataManager.Issues.get(j).getClient().equals(c)){
+                                        return "Monthly index already exists!";
+                                    }
                                 }
                             }
 

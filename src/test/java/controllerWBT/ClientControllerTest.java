@@ -64,4 +64,24 @@ public class ClientControllerTest {
         result = controller.AddClientIndex(new Client("ana", "str", "1234"), 2000, 10, (float)10);
         assertEquals(result, "Monthly index already exists!");
     }
+
+    @Test
+    public void addClientIndexInvalidClientData(){
+        String result = controller.AddClientIndex(new Client("ana3", "str", "1234"), 2000, 10, (float)10);
+        assertEquals("Invalid client data!", result);
+    }
+
+    @Test
+    public void addClientIndexWhenClientRepoEmpty(){
+        String result = controller.AddClientIndex(new Client("ana", "str", "1234"), 2000, 10, (float)10);
+        assertEquals("Client does not exist!", result);
+    }
+
+    @Test
+    public void addClientIndexWhenIndexRepoEmpty(){
+        controller.AddClient("ana", "str", "1234");
+        controller.get_dataManager().SaveChanges();
+        String result = controller.AddClientIndex(new Client("ana", "str", "1234"), 2018, 2, (float)2.2);
+        assertEquals("Success", result);
+    }
 }
