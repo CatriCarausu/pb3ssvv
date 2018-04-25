@@ -121,7 +121,7 @@ public class ClientController {
         Issue last = null, beforeLast;       
         for(int i=0; i<_dataManager.Issues.size(); i++){
         	if(_dataManager.Issues.get(i).getClient().equals(c)){
-            	 pen += String.format("Year: %d, Month: %d, Penalty: %2.0f\n",
+            	 pen += String.format("Year: %d, Month: %d, Penalty: %2.2f\n",
                          _dataManager.Issues.get(i).getYear(), _dataManager.Issues.get(i).getMonth(), _dataManager.Issues.get(i).getToPay());
             	 s += pen;
         	}            
