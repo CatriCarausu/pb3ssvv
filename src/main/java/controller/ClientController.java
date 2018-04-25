@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
-
 import repository.DataManager;
 import model.*;
 
@@ -68,10 +66,6 @@ public class ClientController {
                     if(ValidateClient(c.getName(), c.getAddress(), c.getIdClient()) == null){
                         //check if client exist
                         Boolean exist = false;
-
-                        if (_dataManager.Clients.isEmpty()) {
-                            return "Client does not exist!";
-                        }
 
                         for(int i=0; i<_dataManager.Clients.size(); i++){
                             if(_dataManager.Clients.get(i).equals(c)){
