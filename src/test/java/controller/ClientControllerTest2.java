@@ -1,6 +1,5 @@
-package controllerIntegration;
+package controller;
 
-import controller.ClientController;
 import model.Client;
 import model.Issue;
 import org.junit.Before;
