@@ -95,17 +95,15 @@ public class DataManager {
             String s;
             try (BufferedWriter bwc = new BufferedWriter(pwClient)) {
                 s = "";
-                for(Iterator<Client> i = Clients.iterator(); i.hasNext();){
-                    Client c = i.next();
-                    s += c.toString() + System.getProperty("line.separator");
+                for (Client c : Clients) {
+                    s += c.toString() + "\r\n";
                 }
                 bwc.write(s);
             }
             try (BufferedWriter bwi = new BufferedWriter(pwIssue)) {
                 s = "";
-                for(Iterator<Issue> i = Issues.iterator(); i.hasNext();){
-                    Issue iss = i.next();
-                    s += iss.toString() + System.getProperty("line.separator");
+                for (Issue iss : Issues) {
+                    s += iss.toString() + "\r\n";
                 }
                 bwi.write(s);
             }

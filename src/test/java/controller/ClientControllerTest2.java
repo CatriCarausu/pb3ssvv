@@ -52,29 +52,4 @@ public class ClientControllerTest2 {
         assertTrue(controller.get_dataManager().Clients.contains(new Client("ana maria", "str T Mihali", "1")));
         assertTrue(controller.get_dataManager().Issues.contains(new Issue(new Client("ana maria", "str T Mihali", "1"), 2018, 2, 0, (float) 20.2)));
     }
-
-    @Test
-    public void IncrementalA() {
-        this.addClientSuccess();
-        assertTrue(controller.get_dataManager().Clients.contains(new Client("ana maria", "str T Mihali", "1")));
-    }
-
-    @Test
-    public void IncrementalAB() {
-        this.addClientSuccess();
-        this.addClientIndexSuccess();
-
-        assertTrue(controller.get_dataManager().Clients.contains(new Client("ana maria", "str T Mihali", "1")));
-        assertTrue(controller.get_dataManager().Issues.contains(new Issue(new Client("ana maria", "str T Mihali", "1"), 2018, 2, 0, (float) 20.2)));
-    }
-
-    @Test
-    public void IncrementalABC() {
-        this.addClientSuccess();
-        this.addClientIndexSuccess();
-        this.listIssueSuccess();
-
-        assertTrue(controller.get_dataManager().Issues.contains(new Issue(new Client("ana maria", "str T Mihali", "1"), 2018, 2, 0, (float) 20.2)));
-        assertTrue(controller.get_dataManager().Clients.contains(new Client("ana maria", "str T Mihali", "1")));
-    }
 }
